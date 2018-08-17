@@ -1,5 +1,6 @@
 //webpack.js.org -> Douumentation -> entry
 const path = require('path');
+const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 // Could be one of "prod", "test", or "undefined"(development).
