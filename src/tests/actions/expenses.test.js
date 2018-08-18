@@ -7,6 +7,16 @@ import db from '../../firebase/firebase';
 const createMockStore = configureMockStore([thunk]);
 
 
+beforeEach((done) => {
+    const expensesData = {};
+    expenses.forEach(({ id, description, note, amount, createdAt }) => {
+        expensesData[id] = { description, note, amount, createdAt } 
+    });
+    // If we will not use done the tests will start 
+    // immediately
+    db.ref('expenses').set(expensesData).then(() => done());
+});
+
 // *** // Thunk // *** // 
 // Thunk has 2 main ideas, 
 // one of them is to delay action dispatchement
