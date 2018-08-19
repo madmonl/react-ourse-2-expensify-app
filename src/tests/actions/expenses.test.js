@@ -1,11 +1,10 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { startAddExpense, addExpense, editExpense, removeExpense } from '../../actions/expenses';
+import { startSetExpenses, startAddExpense, addExpense, editExpense, removeExpense, setExpenses } from '../../actions/expenses';
 import expenses from '../fixtures/expenses';
 import db from '../../firebase/firebase';
 
 const createMockStore = configureMockStore([thunk]);
-
 
 beforeEach((done) => {
     const expensesData = {};
@@ -73,6 +72,9 @@ test('should add expense to database and store', (done) => {
         return db.ref(`expenses/${actions[0].expense.id}`).once('value');
     }).then((snapshot) => {
         expect(snapshot.val()).toEqual(expenseData);
+        // Note: in an async test we want to use 'done' func
+        // so we can't consider the test neither a succes nor 
+        // a failure until 'done' is called.
         done();
     });
 });
@@ -104,18 +106,22 @@ test('should add expense with defaults to database and store', (done) => {
     });
 });
 
-// test('should setup add expense with default values', () => {
-//     const defaultExpense = {};
+test('should setup set expense action object with data', () => {
+    const action = setExpenses(expenses);
+    expect(action).toEqual({
+        type: 'SET_EXPENSES',
+        expenses
+    });
+});
 
-//     const action = addExpense(defaultExpense);
-//     expect(action).toEqual({
-//         type: 'ADD_EXPENSE',
-//         expense: {
-//             id: expect.any(String),
-//             description: '', 
-//             note: '', 
-//             amount: 0, 
-//             createdAt: 0
-//         }
-//     });
-// });
+test('should fetch the expenses from firebase', () => {
+    const store = createMockStore({});
+    store.dispatch(startSetExpenses()).then((action) => {
+        const actions = store.getActions();
+        expect(actions[0]).toEqual({
+            type: 'SET_EXPENSES',
+            expenses
+        });
+    });
+});
+
