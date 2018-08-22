@@ -15,3 +15,5 @@ test('expect logout action to work properly', () => {
         type: 'LOGOUT'
     });
 });
+
+window['x'] = "david"

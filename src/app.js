@@ -40,6 +40,6 @@ firebase.auth().onAuthStateChanged((user) => {
     } else {
         store.dispatch(logout());
         rendererApp();
-        history.push('/')
+        history.push('/');
     };
 });
