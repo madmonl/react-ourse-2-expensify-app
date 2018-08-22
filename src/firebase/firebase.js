@@ -3,6 +3,7 @@
 import * as firebase from 'firebase';
 // import expenses from '../tests/fixtures/expenses';
 
+
 const config = {
   apiKey: process.env.FIREBASE_API_KEY,
   authDomain: process.env.FIREBASE_AUTH_DOMAIN,
@@ -15,8 +16,9 @@ const config = {
 firebase.initializeApp(config);
 
 const db = firebase.database();
+const googleAuthProvider = new firebase.auth.GoogleAuthProvider;
 
-export { firebase, db as default };
+export { firebase, googleAuthProvider, db as default };
 
 // //child_removed
 // db.ref('expenses')
