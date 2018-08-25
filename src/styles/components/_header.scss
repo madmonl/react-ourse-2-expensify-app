@@ -1,0 +1,21 @@
+.header {
+    background: $dark-blue;
+}
+
+.header__content {
+    align-items: center;
+    // puts content align
+    display: flex;
+    justify-content: space-between;
+    padding: $s-size 0;
+}
+
+.header__title {
+    color: white;
+    // Removes the default decoration for Links 
+    // which is an underline
+    text-decoration: none;
+    h1 {
+        margin: 0;
+    }
+}

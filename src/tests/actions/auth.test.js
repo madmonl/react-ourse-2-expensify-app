@@ -16,4 +16,3 @@ test('expect logout action to work properly', () => {
     });
 });
 
-window['x'] = "david"
